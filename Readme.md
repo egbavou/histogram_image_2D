@@ -7,6 +7,6 @@
 2. . .venv/bin/activate
 3. pip install -r requirements.txt
 
-## Running with input
+## Running tp file
 
-streamlit run input/main.py
+python3 tp*.py
