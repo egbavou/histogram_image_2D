@@ -146,25 +146,53 @@ if __name__ == "__main__":
         if image.mode != 'L':
             raise ValueError("The image must be in grayscale")
 
+        # 1°)
         visualize_histograms(image, NIV)
         
+        
+        # 2°) a
         adjusted_image = adjust_dynamic_range(image)
         adjusted_image.show()
         adjusted_image.save(f"adjusted_image_{image_path.replace('.tif','')}.jpg")
         
+        # 2°) b
         highlighted_image = highlight_range(image, 100, 150, 1)
         highlighted_image.show()
         highlighted_image.save(f"highlighted_image_{image_path.replace('.tif','')}.jpg")
         
+        # 2°) c
         processed_image = dilate_contract(image, A=128, ad=0.7, ac=0.3)
         processed_image.show()
         processed_image.save(f"processed_image_{image_path.replace('.tif','')}.jpg")
         
         
+        
+        # 3°)
         equalized_image = equalize_histogram(image)
         
         original_histogram = calculate_histogram(image)
         equalized_histogram = calculate_histogram(equalized_image)
+        
+        fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+
+        # Original image and its histogram
+        axes[0, 0].imshow(image, cmap='gray')
+        axes[0, 0].set_title('Original Image')
+        axes[0, 0].axis('off')
+        
+        axes[0, 1].bar(range(256), original_histogram, color='black')
+        axes[0, 1].set_title('Original Histogram')
+        
+        # Equalized image and its histogram
+        axes[1, 0].imshow(equalized_image, cmap='gray')
+        axes[1, 0].set_title('Equalized Image')
+        axes[1, 0].axis('off')
+        
+        axes[1, 1].bar(range(256), equalized_histogram, color='black')
+        axes[1, 1].set_title('Equalized Histogram')
+        
+        plt.tight_layout()
+        plt.show()
         
         image.show()
         equalized_image.show()
