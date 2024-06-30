@@ -1,4 +1,4 @@
-# Image Histogram
+# Project Bas niveau
 
 
 ### Steps to build 
@@ -9,4 +9,4 @@
 
 ## Running tp file
 
-python3 tp*.py
+python3 project.py
